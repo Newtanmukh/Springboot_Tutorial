@@ -56,4 +56,40 @@ public class CourseServiceimpl implements CourseService {
 		return course;
 	}
 
+
+	@Override
+	public Course updateCourse(Course course) {
+		Course c=null;
+		for(Course item:list)
+		{
+			if(item.getId()==course.getId())
+			{
+				list.remove(list.indexOf(item));
+				list.add(course);
+				c=course;
+				break;
+			}
+		}
+		
+		return c;
+	}
+
+
+	@Override
+	public Course deleteCourse(long courseId) {
+        Course c=null;
+		
+		for(Course course:list)
+		{
+			if(course.getId()==courseId)
+			{
+				c=course;
+				list.remove(list.indexOf(c));
+				break;
+			}
+		}
+		
+		return c;
+	}
+
 }

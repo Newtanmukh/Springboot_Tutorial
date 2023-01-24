@@ -2,9 +2,11 @@ package com.springboot.springrest.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -35,11 +37,26 @@ public class MyController {
 		//Long.parseLong will convert the String to Long.
 	}
 	
-	@PostMapping("/course")
+	@PostMapping("/courses")
 	public Course addCourse(@RequestBody Course course)
 	{
 		//this course will be returned after once it is added to the database.
 		return this.courseService.addCourse(course);
 	}
+	
+	@PutMapping("/courses")
+	public Course updateCourse(@RequestBody Course course)
+	{
+		//this course will be returned after once it is added to the database.
+		return this.courseService.updateCourse(course);
+	}
+	
+	@DeleteMapping("/courses/{courseId}")
+	public Course deleteCourse(@PathVariable String courseId)
+	{
+		return this.courseService.deleteCourse(Long.parseLong(courseId));
+	}
+	
+	
 	
 }
