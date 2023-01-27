@@ -1,0 +1,10 @@
+server:
+  port: 8111
+
+spring:
+  application:
+    name: contact-service
+
+eureka:
+  instance:
+    hostname: localhost

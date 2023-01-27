@@ -1,0 +1,21 @@
+server:
+  port: 8999
+eureka:
+  instance:
+    hostname: localhost
+
+
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      routes:
+        - id : user-service
+          uri : lb://user-service
+          predicates:
+            - Path=/user/**
+        - id : contact-service
+          uri: lb://contact-service
+          predicates:
+            - Path=/contact/** #it means if we hit /contact on the port of apigateway, we will be able to use contact thing. Example : http://localhost:8999/user/1312 .
