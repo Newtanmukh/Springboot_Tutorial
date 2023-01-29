@@ -24,7 +24,7 @@ class BlogAppApisApplicationTests {
 		System.out.println(packageName);
 	}
 
-	@Test
+	@Test //Add these annotations as well then run this java file. the methods which have got annotation like this above will then run.
 	public void userServiceTest()
 	{
 		String className=this.userService.getClass().getName();
