@@ -24,7 +24,7 @@ public class User {
 
 	@javax.persistence.Id
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)//Indicates that the persistence provider must assign primary keys for the entity using a database identity column.
 	private int id;
 	
 	//@Column(name="user_name",nullable=false,length=100) //max length of this column is 100(VARCHAR type)
