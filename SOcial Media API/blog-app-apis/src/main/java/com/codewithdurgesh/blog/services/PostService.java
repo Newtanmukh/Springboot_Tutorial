@@ -1,6 +1,7 @@
 package com.codewithdurgesh.blog.services;
 import com.codewithdurgesh.blog.entities.*;
 import com.codewithdurgesh.blog.payloads.PostDto;
+import com.codewithdurgesh.blog.payloads.PostResponse;
 
 import java.util.List;
 
@@ -16,7 +17,7 @@ public interface PostService {
     void deletePost(Integer postId);
 
     //get all posts
-    List<PostDto> getAllPost();
+    PostResponse getAllPost(Integer pageNumber, Integer pageSize);
 
     //get single post
     PostDto getPostById(Integer postId);

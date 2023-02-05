@@ -4,6 +4,7 @@ package com.codewithdurgesh.blog.controllers;
 import com.codewithdurgesh.blog.entities.Post;
 import com.codewithdurgesh.blog.payloads.ApiResponse;
 import com.codewithdurgesh.blog.payloads.PostDto;
+import com.codewithdurgesh.blog.payloads.PostResponse;
 import com.codewithdurgesh.blog.services.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,7 +25,9 @@ public class PostController {
 
     //create
     @PostMapping("/user/{userId}/category/{categoryId}/posts")
-    public ResponseEntity<PostDto> createPost(@RequestBody PostDto postDto, @PathVariable Integer userId, @PathVariable Integer categoryId)
+    public ResponseEntity<PostDto> createPost(@RequestBody PostDto postDto,
+                                              @PathVariable Integer userId,
+                                              @PathVariable Integer categoryId)
     {
         PostDto createdPost = this.postService.createPost(postDto,userId,categoryId);
         return new ResponseEntity<>(createdPost,HttpStatus.CREATED);
@@ -48,10 +51,12 @@ public class PostController {
 
     //get all posts
     @GetMapping("/posts")
-    public ResponseEntity<List<PostDto>> getAllPosts()
+    public ResponseEntity<PostResponse> getAllPosts(
+            @RequestParam(value = "pageNumber",defaultValue = "0",required = false)Integer pageNumber,//required=false means that if you dont supply the pageNumber value, then also fine since it will take the default value in that case.
+            @RequestParam(value = "pageSize",defaultValue = "4",required = false)Integer pageSize)
     {
-        List<PostDto>postDtos=this.postService.getAllPost();
-        return new ResponseEntity<>(postDtos,HttpStatus.OK);
+        PostResponse postResponse = this.postService.getAllPost(pageNumber,pageSize);
+        return new ResponseEntity<>(postResponse,HttpStatus.OK);
     }
 
     @GetMapping("posts/{postId}")

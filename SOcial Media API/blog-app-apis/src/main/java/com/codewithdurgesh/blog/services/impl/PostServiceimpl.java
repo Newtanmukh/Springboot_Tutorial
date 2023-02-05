@@ -5,12 +5,16 @@ import com.codewithdurgesh.blog.entities.Post;
 import com.codewithdurgesh.blog.entities.User;
 import com.codewithdurgesh.blog.exceptions.ResourceNotFoundException;
 import com.codewithdurgesh.blog.payloads.PostDto;
+import com.codewithdurgesh.blog.payloads.PostResponse;
 import com.codewithdurgesh.blog.repositories.CategoryRepo;
 import com.codewithdurgesh.blog.repositories.PostRepo;
 import com.codewithdurgesh.blog.repositories.UserRepo;
 import com.codewithdurgesh.blog.services.PostService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -65,8 +69,24 @@ public class PostServiceimpl implements PostService {
     }
 
 
-    public List<PostDto> getAllPost(){
-        return this.postRepo.findAll().stream().map(post -> (this.modelMapper.map(post,PostDto.class))).collect(Collectors.toList());
+    public PostResponse getAllPost(Integer pageNumber, Integer pageSize){
+
+        Pageable p= PageRequest.of(pageNumber,pageSize);
+        Page<Post> pagePost = this.postRepo.findAll(p);
+        List<PostDto>allPosts = pagePost.getContent().stream().map(post -> (this.modelMapper.map(post,PostDto.class))).collect(Collectors.toList());
+
+        PostResponse postResponse = new PostResponse();
+        postResponse.setPageNumber(pagePost.getNumber());//what number this particular page is
+        postResponse.setPageSize(pagePost.getSize());//The total number of post per page
+        postResponse.setContent(allPosts);
+        postResponse.setTotalElements(pagePost.getTotalElements());//total number of posts across all pages.
+        postResponse.setTotalPages(pagePost.getTotalPages());//the total number of pages.
+        postResponse.setLastPage(pagePost.isLast());//whether this is the last page number or not
+        postResponse.setFirstPage(pagePost.isFirst());//whether this is the first page number or not
+
+        //THIS WILL RETURN ALL POSTS.
+        //return this.postRepo.findAll().stream().map(post -> (this.modelMapper.map(post,PostDto.class))).collect(Collectors.toList());
+        return postResponse;
     }
 
 
