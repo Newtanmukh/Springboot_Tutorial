@@ -13,5 +13,5 @@ spring:
           dialect: org.hibernate.dialect.MySQL8Dialect
     generate-ddl: true
     hibernate:
-      ddl-auto: create
+      ddl-auto: update # Change it to create later. create will destroy all previous data and schemas.
     show-sql: true #This will basically show you hibernate query.

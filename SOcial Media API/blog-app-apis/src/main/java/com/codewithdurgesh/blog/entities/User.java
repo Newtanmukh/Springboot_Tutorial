@@ -9,8 +9,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-
-
+import java.util.ArrayList;
+import java.util.List;
 
 
 //Using LOMBOK Here.
@@ -19,6 +19,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @Entity
+@Table(name = "users")
 public class User {
 	//@GeneratedValue(strategy=GenerationType.AUTO) //basically, it will autoincrement the id.
 
@@ -36,5 +37,7 @@ public class User {
 	
 	private String about;
 
+	@OneToMany(mappedBy = "user",cascade = CascadeType.ALL,fetch=FetchType.LAZY)
+	private List<Post> posts = new ArrayList<>();
 
 }
