@@ -1,13 +1,14 @@
 package com.codewithdurgesh.blog.payloads;
 
-import com.codewithdurgesh.blog.entities.Category;
-import com.codewithdurgesh.blog.entities.User;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.criteria.CriteriaBuilder;
+
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -28,4 +29,5 @@ public class PostDto {
 
     private UserDto user;
 
+    private Set<CommentDto> comments= new HashSet<>();//if it were comment , then post inside comment, then again comment inside that post and infinite recurison. so , since commentDto does not have any post entry, so that is why.
 }

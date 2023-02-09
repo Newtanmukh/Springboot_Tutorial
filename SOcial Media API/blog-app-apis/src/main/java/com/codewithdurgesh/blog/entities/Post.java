@@ -2,6 +2,8 @@ package com.codewithdurgesh.blog.entities;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import com.codewithdurgesh.blog.entities.Category;
 import com.codewithdurgesh.blog.entities.User;
@@ -37,4 +39,6 @@ public class Post {
     @ManyToOne
     private User user;//which user had added this.
 
+    @OneToMany(mappedBy = "post",cascade = CascadeType.ALL)//foreign key will then be made in the Comment Entity.
+    private Set<Comment>comments = new HashSet<>();
 }

@@ -1,6 +1,7 @@
 package com.codewithdurgesh.blog.controllers;
 
 
+import com.codewithdurgesh.blog.config.AppConstants;
 import com.codewithdurgesh.blog.entities.Post;
 import com.codewithdurgesh.blog.payloads.ApiResponse;
 import com.codewithdurgesh.blog.payloads.PostDto;
@@ -50,12 +51,12 @@ public class PostController {
     }
 
     //get all posts
-    @GetMapping("/posts")
+    @GetMapping("/posts")//constants in the config folder.
     public ResponseEntity<PostResponse> getAllPosts(
-            @RequestParam(value = "pageNumber",defaultValue = "0",required = false)Integer pageNumber,//required=false means that if you dont supply the pageNumber value, then also fine since it will take the default value in that case.
-            @RequestParam(value = "pageSize",defaultValue = "4",required = false)Integer pageSize,
-            @RequestParam(value = "sortBy",defaultValue = "postId",required = false)String sortBy,
-            @RequestParam(value = "sortDir",defaultValue = "ASC",required = false)String sortDir)//default value 'postId' came from PostDto.
+            @RequestParam(value = "pageNumber",defaultValue = AppConstants.PAGE_NUMBER,required = false)Integer pageNumber,//required=false means that if you dont supply the pageNumber value, then also fine since it will take the default value in that case.
+            @RequestParam(value = "pageSize",defaultValue = AppConstants.PAGE_SIZE,required = false)Integer pageSize,
+            @RequestParam(value = "sortBy",defaultValue = AppConstants.SORT_BY,required = false)String sortBy,
+            @RequestParam(value = "sortDir",defaultValue = AppConstants.SORT_DIR,required = false)String sortDir)//default value 'postId' came from PostDto.
     {
         PostResponse postResponse = this.postService.getAllPost(pageNumber, pageSize, sortBy, sortDir);
         return new ResponseEntity<>(postResponse,HttpStatus.OK);
