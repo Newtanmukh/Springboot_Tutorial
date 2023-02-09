@@ -53,9 +53,11 @@ public class PostController {
     @GetMapping("/posts")
     public ResponseEntity<PostResponse> getAllPosts(
             @RequestParam(value = "pageNumber",defaultValue = "0",required = false)Integer pageNumber,//required=false means that if you dont supply the pageNumber value, then also fine since it will take the default value in that case.
-            @RequestParam(value = "pageSize",defaultValue = "4",required = false)Integer pageSize)
+            @RequestParam(value = "pageSize",defaultValue = "4",required = false)Integer pageSize,
+            @RequestParam(value = "sortBy",defaultValue = "postId",required = false)String sortBy,
+            @RequestParam(value = "sortDir",defaultValue = "ASC",required = false)String sortDir)//default value 'postId' came from PostDto.
     {
-        PostResponse postResponse = this.postService.getAllPost(pageNumber,pageSize);
+        PostResponse postResponse = this.postService.getAllPost(pageNumber, pageSize, sortBy, sortDir);
         return new ResponseEntity<>(postResponse,HttpStatus.OK);
     }
 

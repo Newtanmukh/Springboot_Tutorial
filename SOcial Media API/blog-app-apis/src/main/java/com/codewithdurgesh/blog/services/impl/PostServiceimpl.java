@@ -16,6 +16,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.data.domain.Sort;
 
 import java.util.Date;
 import java.util.List;
@@ -69,9 +70,21 @@ public class PostServiceimpl implements PostService {
     }
 
 
-    public PostResponse getAllPost(Integer pageNumber, Integer pageSize){
+    public PostResponse getAllPost(Integer pageNumber, Integer pageSize, String sortBy, String sortDir){
 
-        Pageable p= PageRequest.of(pageNumber,pageSize);
+        Sort sort = null;
+        if(sortDir.equalsIgnoreCase("asc"))
+        {
+            sort = Sort.by(sortBy).ascending();
+        }
+        else
+        {
+            sort = Sort.by(sortBy).descending();
+        }
+
+
+        Pageable p= PageRequest.of(pageNumber,pageSize,sort);
+        //Pageable p= PageRequest.of(pageNumber,pageSize,Sort.by(sortBy).descending());
         Page<Post> pagePost = this.postRepo.findAll(p);
         List<PostDto>allPosts = pagePost.getContent().stream().map(post -> (this.modelMapper.map(post,PostDto.class))).collect(Collectors.toList());
 
