@@ -1,14 +1,18 @@
 package com.codewithdurgesh.blog.repositories;
 import com.codewithdurgesh.blog.entities.*;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
 public interface PostRepo extends JpaRepository<Post,Integer> {
 
 
-
-
+    //similarly,if the post's title contains this as substring, then those post will be appended.
+    //SEARCHING purposes.
+    @Query("select p from Post p where p.title like :key")
+    List<Post>searchByTitle(@Param("key") String title);
 
     List<Post> findByUser(User user);
 

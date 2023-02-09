@@ -129,6 +129,7 @@ public class PostServiceimpl implements PostService {
 
 
     public List<PostDto> searchPosts(String keyword){
-        return null;
+        List<Post>posts=this.postRepo.searchByTitle("%"+keyword+"%");//will have to add this '%' if this is being taken as an SQL query.
+        return posts.stream().map((post)->(this.modelMapper.map(post,PostDto.class))).collect(Collectors.toList());
     }
 }
