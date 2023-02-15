@@ -1,0 +1,8 @@
+complete overview of executor service and all the executions which are being done in executor service.
+execute()
+shutDown()
+
+submit(new Runnable())
+submit(new Callable())
+invokeAny()
+invokeAll()

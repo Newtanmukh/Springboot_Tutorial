@@ -1,0 +1,31 @@
+we can create using two ways :
+* Runnable Interface
+* Using the Thread Class.
+
+Interface Runnable {
+    run(); //this is the place where we actually write the code which needs to be run.
+    }
+
+
+another way is to use the inbuilt Thread class method. the class thread extends the Runnable Interface.
+so we create a class Mythread, and then we can either extend the Runnable interdace  then implement our run () method there  or we can extend the Thread class and then implement our run () method there
+
+Runnable does not give a thread method by default. you will have to load it into another object of type Thread() and then you can start it there.
+however, if we extend the thread method, then we can directly start the thread.
+
+in runnable case, we can implement as well as extend another class.
+class Mythread implements Runnable extends Sample_Class{
+                        }
+
+Thread class provides methods to perform operations with threads.
+getName() : return the name of the thread
+setName(String name) : will set the name of the thread as this
+run() : contain the contestns of task
+start() : start running the contents which are inside the run() method.
+getId() : return you the id of the thread.
+setPriority(), getPriority() : will be able to get and set the priorities.
+sleep(), join(), interrupt(), resume(), stop().
+
+
+Daemon Threads are threads that provide service to the User thread. example is garbage collector,
+once the main thread gets finished, the daemon thread will also finish off. it keeps on collecting garbage.
